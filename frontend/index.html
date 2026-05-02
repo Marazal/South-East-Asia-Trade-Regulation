@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asia-Pacific Digital Trade Tool · UNESCAP 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ── nav ── -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="globe">🌏</span>
+      Asia-Pacific <em>Digital Trade Tool</em>
+    </div>
+    <div class="nav-right">
+      <span class="nav-tag">UNESCAP · RDTII 2025</span>
+      <a class="nav-gh" href="https://github.com/YOUR_USERNAME/aptrade" target="_blank">
+        GitHub ↗
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── hero ── -->
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Regulatory Explorer<br><span>+ Pipeline Finder</span></h1>
+      <p>Automatically scraped, AI-analyzed digital trade regulations across 20 Asia-Pacific economies. Find the most efficient trade pipeline between any two countries.</p>
+      <div class="hero-stats">
+        <div class="stat"><strong>20</strong><span>Economies</span></div>
+        <div class="stat"><strong>12</strong><span>Topics</span></div>
+        <div class="stat"><strong>5</strong><span>Transit hubs</span></div>
+        <div class="stat"><strong>2025</strong><span>RDTII data</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── tab bar ── -->
+  <div class="tab-bar" role="tablist">
+    <button class="tab on" onclick="switchTab('explorer', this)" role="tab">Country explorer</button>
+    <button class="tab"    onclick="switchTab('pipeline', this)"  role="tab">Pipeline finder</button>
+    <button class="tab"    onclick="switchTab('guide', this)"     role="tab">Beginner guide</button>
+    <button class="tab"    onclick="switchTab('glossary', this)"  role="tab">Glossary</button>
+  </div>
+
+  <!-- ── pages ── -->
+  <main>
+
+    <!-- EXPLORER -->
+    <section id="page-explorer" class="page on" role="tabpanel">
+      <div class="page-inner">
+        <div class="section-head">
+          <h2>All economies — openness ranking</h2>
+          <p>Openness score: <mark class="hi">8–10</mark> very open · <mark class="md">5–7</mark> moderate · <mark class="lo">1–4</mark> restrictive. Click any card for details.</p>
+        </div>
+        <div id="country-grid" class="country-grid"></div>
+        <div class="section-head" style="margin-top:28px;">
+          <h2>Score chart</h2>
+        </div>
+        <div id="bar-chart" class="bar-chart-wrap"></div>
+        <div id="country-detail"></div>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section id="page-pipeline" class="page" role="tabpanel">
+      <div class="page-inner">
+        <div class="section-head">
+          <h2>Find the most efficient trade pipeline</h2>
+          <p>Select a source and destination. The tool finds every possible regulatory pathway and ranks them by efficiency.</p>
+        </div>
+        <div class="pipeline-selectors">
+          <div class="sel-group">
+            <label for="src-sel">Source economy</label>
+            <select id="src-sel"></select>
+          </div>
+          <div class="sel-arrow">→</div>
+          <div class="sel-group">
+            <label for="dst-sel">Destination economy</label>
+            <select id="dst-sel"></select>
+          </div>
+        </div>
+        <button class="run-btn" onclick="runPipeline()">Find all pipelines →</button>
+        <div id="pipeline-results"></div>
+      </div>
+    </section>
+
+    <!-- GUIDE -->
+    <section id="page-guide" class="page" role="tabpanel">
+      <div class="page-inner" id="guide-content"></div>
+    </section>
+
+    <!-- GLOSSARY -->
+    <section id="page-glossary" class="page" role="tabpanel">
+      <div class="page-inner" id="glossary-content"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Built for the <strong>UNESCAP Global Hackathon 2026</strong> · "Where Code Meets Law" · Open Source · MIT License</p>
+    <p style="margin-top:4px;opacity:.5;font-size:11px;">Data: ESCAP RDTII 2025 · WTO · UNCTAD · National government sources</p>
+  </footer>
+
+  <!-- JS files loaded at bottom so HTML renders first -->
+  <script src="/js/explorer.js"></script>
+  <script src="/js/pipeline.js"></script>
+  <script src="/js/guide.js"></script>
+  <script src="/js/glossary.js"></script>
+  <script>
+    // Tab switcher — shared across all JS modules
+    function switchTab(name, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+      document.getElementById('page-' + name).classList.add('on');
+      btn.classList.add('on');
+    }
+
+    // Boot everything when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      initExplorer();
+      initPipeline();
+      initGuide();
+      initGlossary();
+    });
+  </script>
+
+</body>
+</html>
